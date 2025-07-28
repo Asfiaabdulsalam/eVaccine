@@ -6,7 +6,6 @@ $sql = "SELECT parent_requests.*, users.name AS parent_name
         LEFT JOIN users ON parent_requests.parent_id = users.id
         ORDER BY parent_requests.id DESC";
 
-
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -38,7 +37,7 @@ $result = mysqli_query($conn, $sql);
       </div>              
       <!-- Sliding Text -->
       <div class="flex-grow-1 justify-content-end">
-       <div class="text-slide-container" style="width: 100%; max-width: 900px; overflow: hidden; position: relative;">
+       <div class="text-slide-container" style="width: 100%; max-width: 1300px; overflow: hidden; position: relative;">
         <div class="text-slide-content"
           style="white-space: nowrap; display: inline-block; animation: slideText 20s linear infinite; padding-left: 50px;">
           <span style="font-size: 18px; font-weight: 600; color: #025f66; margin-right: 90px;">
@@ -90,7 +89,7 @@ $result = mysqli_query($conn, $sql);
       }
     </style>
         <!-- Sidebar Start -->
-        <aside class="left-sidebar">
+        <aside class="left-sidebar" style="margin-top: 6px;">
             <!-- Sidebar scroll-->
             <div>
 
@@ -203,9 +202,9 @@ $result = mysqli_query($conn, $sql);
                                                 <tr>
                                                     <th class="px-3 text-muted">ID</th>
                                                     <th class="px-3 text-muted">Parent</th>
-                                                    <th class="px-3 text-muted">Type</th>
+                                                    <th class="px-3 text-muted">email</th>
+                                                    <th class="px-3 text-muted">phone</th>
                                                     <th class="px-3 text-muted">Message</th>
-                                                    <th class="px-3 text-muted">Status</th>
                                                     <th class="px-3 text-muted">Created At</th>
                                                 </tr>
                                             </thead>
@@ -214,9 +213,9 @@ $result = mysqli_query($conn, $sql);
                                                     <tr>
                                                         <td class="px-3"><?php echo $row['id']; ?></td>
                                                         <td class="px-3"><?php echo $row['parent_name']; ?></td>
-                                                        <td class="px-3"><?php echo $row['request_type']; ?></td>
+                                                        <td class="px-3"><?php echo $row['email']; ?></td>
+                                                        <td class="px-3"><?php echo $row['phone']; ?></td>
                                                         <td class="px-3"><?php echo $row['message']; ?></td>
-                                                        <td class="px-3 text-capitalize"><?php echo $row['status']; ?></td>
                                                         <td class="px-3"><?php echo $row['created_at']; ?></td>
                                                     </tr>
                                                 <?php } ?>

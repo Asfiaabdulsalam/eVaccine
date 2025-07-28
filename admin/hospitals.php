@@ -35,7 +35,7 @@ $result = mysqli_query($conn, $sql);
       </div>              
       <!-- Sliding Text -->
       <div class="flex-grow-1 justify-content-end">
-       <div class="text-slide-container" style="width: 100%; max-width: 900px; overflow: hidden; position: relative;">
+       <div class="text-slide-container" style="width: 100%; max-width: 1300px; overflow: hidden; position: relative;">
         <div class="text-slide-content"
           style="white-space: nowrap; display: inline-block; animation: slideText 20s linear infinite; padding-left: 50px;">
           <span style="font-size: 18px; font-weight: 600; color: #025f66; margin-right: 90px;">
@@ -87,7 +87,7 @@ $result = mysqli_query($conn, $sql);
       }
     </style>
         <!-- Sidebar Start -->
-        <aside class="left-sidebar">
+        <aside class="left-sidebar" style="margin-top: 6px;">
             <!-- Sidebar scroll-->
             <div>
 

@@ -1,35 +1,52 @@
 <?php
 include('inc.connection.php');
 
-$sql = "SELECT booking_requests.*, hospitals.name AS hospital_name 
-        FROM booking_requests
-        JOIN hospitals ON booking_requests.hospital_id = hospitals.id";
-
+$sql = "SELECT * FROM booking_requests";
 $result = mysqli_query($conn, $sql);
-// Approve action
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['approveBtn'])) {
-  $booking_id = $_POST['booking_id'];
-  $child_id = $_POST['child_id'];
-  $vaccine_id = $_POST['vaccine_id'];
-  $hospital_id = $_POST['hospital_id'];
-  $preferred_date = $_POST['preferred_date'];
 
-  $insert_schedule = "INSERT INTO vaccination_schedule (child_id, vaccine_id, hospital_id, scheduled_date, status)
-                      VALUES ('$child_id', '$vaccine_id', '$hospital_id', '$preferred_date', 'Pending')";
-  mysqli_query($conn, $insert_schedule);
+if (isset($_POST['approveBtn'])) {
+    $booking_id = $_POST['booking_id'];
 
-  $update_booking = "UPDATE booking_requests SET status = 'Approved' WHERE id = '$booking_id'";
-  mysqli_query($conn, $update_booking);
-}
+    // Step 1: Get booking details
+    $sql = "SELECT * FROM booking_requests WHERE id = '$booking_id'";
+    $result_booking = mysqli_query($conn, $sql);
+    $booking = mysqli_fetch_assoc($result_booking);
 
-// Reject action
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['rejectBtn'])) {
-  $booking_id = $_POST['booking_id'];
-  $delete_booking = "DELETE FROM booking_requests WHERE id = '$booking_id'";
-  mysqli_query($conn, $delete_booking);
+    if ($booking) {
+        $child_id = $booking['child_id'];
+        $vaccine_id = $booking['vaccine_id'];
+        $hospital_id = $booking['hospital_id'];
+        $scheduled_date = $booking['preferred_date'] ?: date('Y-m-d');
+
+        // Step 2: Check vaccine stock
+        $check_stock = "SELECT available_quantity FROM vaccines WHERE id = '$vaccine_id'";
+        $stock_result = mysqli_query($conn, $check_stock);
+        $vaccine = mysqli_fetch_assoc($stock_result);
+
+        if ($vaccine && $vaccine['available_quantity'] > 0) {
+            // Step 3: Insert into vaccination_schedule
+            $insert = "INSERT INTO vaccination_schedule (child_id, vaccine_id, hospital_id, scheduled_date, status)
+                       VALUES ('$child_id', '$vaccine_id', '$hospital_id', '$scheduled_date', 'Pending')";
+            if (mysqli_query($conn, $insert)) {
+                // Step 4: Update vaccine stock
+                $update_vaccine = "UPDATE vaccines SET available_quantity = available_quantity - 1 WHERE id = '$vaccine_id'";
+                mysqli_query($conn, $update_vaccine);
+
+                // Step 5: Update booking status
+                $update_booking = "UPDATE booking_requests SET status = 'Approved' WHERE id = '$booking_id'";
+                mysqli_query($conn, $update_booking);
+            }
+        }
+    }
+
+    // ✅ Refresh the page silently after processing
+    header("Location: booking-request.php");
+    exit;
 }
 
 ?>
+
+
 
 
 <!doctype html>
@@ -58,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['rejectBtn'])) {
       </div>              
       <!-- Sliding Text -->
       <div class="flex-grow-1 justify-content-end">
-       <div class="text-slide-container" style="width: 100%; max-width: 900px; overflow: hidden; position: relative;">
+       <div class="text-slide-container" style="width: 100%; max-width: 1300px; overflow: hidden; position: relative;">
         <div class="text-slide-content"
           style="white-space: nowrap; display: inline-block; animation: slideText 20s linear infinite; padding-left: 50px;">
           <span style="font-size: 18px; font-weight: 600; color: #025f66; margin-right: 90px;">
@@ -110,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['rejectBtn'])) {
       }
     </style>
     <!-- Sidebar Start -->
-    <aside class="left-sidebar">
+    <aside class="left-sidebar" style="margin-top: 6px;">
       <!-- Sidebar scroll-->
       <div>
         <!-- Sidebar navigation-->

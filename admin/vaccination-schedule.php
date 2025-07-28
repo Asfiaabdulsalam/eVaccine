@@ -7,6 +7,9 @@ $sql = "SELECT vs.*, c.name AS child_name, v.name AS vaccine_name, h.name AS hos
         LEFT JOIN hospitals h ON vs.hospital_id = h.id";
 
 
+
+
+
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -36,7 +39,7 @@ $result = mysqli_query($conn, $sql);
       </div>              
       <!-- Sliding Text -->
       <div class="flex-grow-1 justify-content-end">
-       <div class="text-slide-container" style="width: 100%; max-width: 900px; overflow: hidden; position: relative;">
+       <div class="text-slide-container" style="width: 100%; max-width: 1300px; overflow: hidden; position: relative;">
         <div class="text-slide-content"
           style="white-space: nowrap; display: inline-block; animation: slideText 20s linear infinite; padding-left: 50px;">
           <span style="font-size: 18px; font-weight: 600; color: #025f66; margin-right: 90px;">
@@ -88,7 +91,7 @@ $result = mysqli_query($conn, $sql);
       }
     </style>
     <!-- Sidebar Start -->
-    <aside class="left-sidebar">
+    <aside class="left-sidebar" style="margin-top: 6px;">
       <!-- Sidebar scroll-->
       <div>
 
@@ -158,7 +161,7 @@ $result = mysqli_query($conn, $sql);
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link has-arrow" href="vaccination-schedule.php" aria-expanded="false">
+              <a class="sidebar-link " href="vaccination-schedule.php" aria-expanded="false">
                 <i class="ti ti-atom"></i>
                 <span class="hide-menu">Vaccination-schedule</span>
               </a>

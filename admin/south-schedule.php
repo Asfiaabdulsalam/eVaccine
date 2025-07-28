@@ -29,9 +29,68 @@ $result = mysqli_query($conn, $sql);
         data-sidebar-position="fixed" data-header-position="fixed">
 
         <!--  App Topstrip -->
-       
+       <div class="app-topstrip py-6 px-3 w-100 d-lg-flex align-items-center justify-content-between"
+     style="background-color: #b6e2e4; align-items: center; height: 70px;">  
+      <div class="brand-logo d-flex align-items-center justify-content-between">
+        <a href="./webindex.php" class="text-nowrap logo-img">
+          <img src="assets/images/logos/7e06b2c1-8c53-45c0-bd0c-e7c613a0910d-removebg-preview.png" alt="" />
+        </a>
+      </div>              
+      <!-- Sliding Text -->
+      <div class="flex-grow-1 justify-content-end">
+       <div class="text-slide-container" style="width: 100%; max-width: 1300px; overflow: hidden; position: relative;">
+        <div class="text-slide-content"
+          style="white-space: nowrap; display: inline-block; animation: slideText 20s linear infinite; padding-left: 50px;">
+          <span style="font-size: 18px; font-weight: 600; color: #025f66; margin-right: 90px;">
+            Welcome to the Admin Panel — Efficiently Manage E-Vaccination Records with Confidence and Control.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+      <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">               
+        <li class="nav-item dropdown">
+          <a class="nav-link " href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="./assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+          </a>
+          <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+            <div class="message-body">
+              <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                <i class="ti ti-user fs-6"></i>
+                  <p class="mb-0 fs-3">My Profile</p>
+              </a>
+              <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                <i class="ti ti-mail fs-6"></i>
+                <p class="mb-0 fs-3">My Account</p>
+              </a>
+              <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                <i class="ti ti-list-check fs-6"></i>
+                <p class="mb-0 fs-3">My Task</p>
+              </a>
+              <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+    <style>
+      @keyframes slideText {
+        0% { transform: translateX(70%); }   /* start slightly more to the right */
+        100% { transform: translateX(-100%); }
+      }
+
+      .brand-logo img{
+        height: 170px;
+        margin-bottom: -30px;
+        margin-left: -40px;
+        margin-top: -30px;
+        padding: 10px 10px;
+      }
+      </style>
         <!-- Sidebar Start -->
-        <aside class="left-sidebar">
+        <aside class="left-sidebar" style="margin-top: 6px;">
             <!-- Sidebar scroll-->
             <div>
                 

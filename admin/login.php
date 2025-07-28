@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['loginBtn'])) {
 
                 <!-- Logo -->
                 <div class="text-center mb-3">
-                  <img src="./assets/images/logos/2092fc4b-f777-437b-a14d-dbad6615c9c0-removebg-preview.png"
+                  <img src="./assets/images/logos/7e06b2c1-8c53-45c0-bd0c-e7c613a0910d-removebg-preview.png"
                     alt="Logo"
                     class="img-fluid"
                     style="max-width: 200px; height: auto;">
