@@ -1,113 +1,142 @@
 <?php
 include('inc.connection.php');
 
+// Enable status selector for this page
+$show_status_selector = true;
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_status'])) {
+  $allowed_statuses = ['Pending', 'Vaccinated', 'Missed'];
+  $schedule_id = (int)$_POST['schedule_id'];
+  $new_status = $_POST['new_status'];
+
+  if (!in_array($new_status, $allowed_statuses)) {
+    die("Invalid status value");
+  }
+
+  $update_sql = "UPDATE vaccination_schedule SET status = ? WHERE id = ?";
+  $stmt = mysqli_prepare($conn, $update_sql);
+  mysqli_stmt_bind_param($stmt, "si", $new_status, $schedule_id);
+
+  if (mysqli_stmt_execute($stmt)) {
+    header("Location: pns-schedule.php");
+    exit();
+  }
+}
+
 $sql = "SELECT vs.*, c.name AS child_name, v.name AS vaccine_name, h.name AS hospital_name
         FROM vaccination_schedule vs
         LEFT JOIN children c ON vs.child_id = c.id
         LEFT JOIN vaccines v ON vs.vaccine_id = v.id
         LEFT JOIN hospitals h ON vs.hospital_id = h.id
-        WHERE vs.hospital_id = 3"; 
+        WHERE vs.hospital_id = 3";
 
 $result = mysqli_query($conn, $sql);
+if (!$result) {
+  die("Database error: " . mysqli_error($conn));
+}
 ?>
-
 
 <!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>schedule</title>
-    <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="./assets/css/styles.min.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PNS Shifa Schedule</title>
+  <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="./assets/css/styles.min.css" />
 </head>
 
 <body>
-    <!--  Body Wrapper -->
-    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-        data-sidebar-position="fixed" data-header-position="fixed">
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
 
-        <!--  App Topstrip -->
-       <div class="app-topstrip py-6 px-3 w-100 d-lg-flex align-items-center justify-content-between"
-     style="background-color: #b6e2e4; align-items: center; height: 70px;">  
+    <!--  App Topstrip -->
+    <div class="app-topstrip py-6 px-3 w-100 d-lg-flex align-items-center justify-content-between"
+      style="background-color: #b6e2e4; align-items: center; height: 70px;">
       <div class="brand-logo d-flex align-items-center justify-content-between">
         <a href="./webindex.php" class="text-nowrap logo-img">
           <img src="assets/images/logos/7e06b2c1-8c53-45c0-bd0c-e7c613a0910d-removebg-preview.png" alt="" />
         </a>
-      </div>              
+      </div>
       <!-- Sliding Text -->
       <div class="flex-grow-1 justify-content-end">
-       <div class="text-slide-container" style="width: 100%; max-width: 1300px; overflow: hidden; position: relative;">
-        <div class="text-slide-content"
-          style="white-space: nowrap; display: inline-block; animation: slideText 20s linear infinite; padding-left: 50px;">
-          <span style="font-size: 18px; font-weight: 600; color: #025f66; margin-right: 90px;">
-            Welcome to the Admin Panel — Efficiently Manage E-Vaccination Records with Confidence and Control.
-          </span>
+        <div class="text-slide-container" style="width: 100%; max-width: 1300px; overflow: hidden; position: relative;">
+          <div class="text-slide-content"
+            style="white-space: nowrap; display: inline-block; animation: slideText 20s linear infinite; padding-left: 50px;">
+            <span style="font-size: 18px; font-weight: 600; color: #025f66; margin-right: 90px;">
+              Welcome to the Admin Panel — Efficiently Manage E-Vaccination Records with Confidence and Control.
+            </span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-      <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">               
-        <li class="nav-item dropdown">
-          <a class="nav-link " href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <img src="./assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
-          </a>
-          <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-            <div class="message-body">
-              <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                <i class="ti ti-user fs-6"></i>
+      <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+        <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+          <li class="nav-item dropdown">
+            <a class="nav-link " href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <img src="./assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+            </a>
+            <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+              <div class="message-body">
+                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                  <i class="ti ti-user fs-6"></i>
                   <p class="mb-0 fs-3">My Profile</p>
-              </a>
-              <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                <i class="ti ti-mail fs-6"></i>
-                <p class="mb-0 fs-3">My Account</p>
-              </a>
-              <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                <i class="ti ti-list-check fs-6"></i>
-                <p class="mb-0 fs-3">My Task</p>
-              </a>
-              <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                </a>
+                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                  <i class="ti ti-mail fs-6"></i>
+                  <p class="mb-0 fs-3">My Account</p>
+                </a>
+                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                  <i class="ti ti-list-check fs-6"></i>
+                  <p class="mb-0 fs-3">My Task</p>
+                </a>
+                <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+              </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
     <style>
       @keyframes slideText {
-        0% { transform: translateX(70%); }   /* start slightly more to the right */
-        100% { transform: translateX(-100%); }
+        0% {
+          transform: translateX(70%);
+        }
+
+        /* start slightly more to the right */
+        100% {
+          transform: translateX(-100%);
+        }
       }
 
-      .brand-logo img{
+      .brand-logo img {
         height: 170px;
         margin-bottom: -30px;
         margin-left: -40px;
         margin-top: -30px;
         padding: 10px 10px;
       }
-      </style>
-        <!-- Sidebar Start -->
-        <aside class="left-sidebar" style="margin-top: 6px;">
-            <!-- Sidebar scroll-->
-            <div>
-                
-                <!-- Sidebar navigation-->
-                 <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-                 <ul id="sidebarnav">
-                     <li class="nav-small-cap">
-                        <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-                        <span class="hide-menu">Home</span>
-                     </li>
+    </style>
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar" style="margin-top: 6px;">
+      <!-- Sidebar scroll-->
+      <div>
+
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+              <span class="hide-menu">Home</span>
+            </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="pns-shifa.php" aria-expanded="false">
                 <i class="ti ti-atom"></i>
                 <span class="hide-menu">Vaccine-Reservation</span>
               </a>
             </li>
-             <li class="sidebar-item">
+            <li class="sidebar-item">
               <a class="sidebar-link" href="pns-schedule.php" aria-expanded="false">
                 <i class="ti ti-atom"></i>
                 <span class="hide-menu">Schedule</span>
@@ -115,80 +144,105 @@ $result = mysqli_query($conn, $sql);
             </li>
           </ul>
         </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
-        <!--  Sidebar End -->
-        <!--  Main wrapper -->
-        <div class="body-wrapper">
-            <!--  Header Start -->
-            
-            <!--  Header End -->
-            <div class="body-wrapper-inner">
-                <div class="container-fluid">
-                    <!--  Row 1 -->
-                    <div class="row" style="margin-top: -30px;">
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header Start -->
 
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-md-flex align-items-center">
-                                        <div>
-                                            <h4 class="card-title">SCHEDULE</h4>
-                                            <!-- <p class="card-subtitle">
+      <!--  Header End -->
+      <div class="body-wrapper-inner">
+        <div class="container-fluid">
+          <!--  Row 1 -->
+          <div class="row" style="margin-top: -30px;">
+
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-md-flex align-items-center">
+                    <div>
+                      <h4 class="card-title">SCHEDULE</h4>
+                      <!-- <p class="card-subtitle">
                         Ample Admin Vs Pixel Admin
                       </p> -->
-                                        </div>
+                    </div>
 
-                                    </div>
-                                    <div class="table-responsive mt-4">
-                                        <table class="table mb-0 text-nowrap varient-table align-middle fs-3">
-                                            <thead>
-                                                <tr>
-<th scope="col" class="px-3 text-muted">Id</th>
+                  </div>
+                  <div class="table-responsive mt-4">
+                    <table class="table mb-0 text-nowrap varient-table align-middle fs-3">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="px-3 text-muted">Id</th>
                           <th scope="col" class="px-3 text-muted">Child-Id</th>
                           <th scope="col" class="px-3 text-muted">Vaccine-Id</th>
                           <th scope="col" class="px-3 text-muted">Hospital-Id</th>
                           <th scope="col" class="px-3 text-muted">Scheduled-Date</th>
                           <th scope="col" class="px-3 text-muted">Status</th>
                       </thead>
+
                       <tbody>
                         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                           <tr>
                             <td class="px-3"><?php echo $row['id']; ?></td>
-                            <td class="px-3"><?php echo $row['child_id']; ?></td>
-                            <td class="px-3"><?php echo $row['vaccine_id']; ?></td>
-                            <td class="px-3"><?php echo $row['hospital_id']; ?></td>
+                            <td class="px-3"><?php echo $row['child_id'] . ' - ' . $row['child_name']; ?></td>
+                            <td class="px-3"><?php echo $row['vaccine_id'] . ' - ' . $row['vaccine_name']; ?></td>
+                            <td class="px-3"><?php echo $row['hospital_id'] . ' - ' . $row['hospital_name']; ?></td>
                             <td class="px-3"><?php echo $row['scheduled_date']; ?></td>
-                            <td class="px-3"><?php echo $row['status']; ?></td>
+                            <td class="px-3">
+                              <?php
+                              // Status badge
+                              if ($row['status'] === 'Pending') {
+                                echo "<span class='badge bg-warning'>Pending</span>";
+                              } elseif ($row['status'] === 'Vaccinated') {
+                                echo "<span class='badge bg-success'>Vaccinated</span>";
+                              } else {
+                                echo "<span class='badge bg-danger'>Missed</span>";
+                              }
+
+                              // Status update buttons (only show for pending records)
+                              if ($show_status_selector && $row['status'] === 'Pending') {
+                                echo '<form method="POST" class="d-inline ms-2">';
+                                echo '<input type="hidden" name="schedule_id" value="' . $row['id'] . '">';
+
+                                echo '<button type="submit" name="new_status" value="Vaccinated" 
+                              class="btn btn-success btn-sm me-1">✓ Approve</button>';
+
+                                echo '<button type="submit" name="new_status" value="Missed" 
+                              class="btn btn-danger btn-sm">✕ Reject</button>';
+
+                                echo '</form>';
+                              }
+                              ?>
+                            </td>
                           </tr>
                         <?php } ?>
-                                            </tbody>
+                      </tbody>
 
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-
+                    </table>
+                  </div>
                 </div>
+              </div>
             </div>
+
+
+          </div>
+
         </div>
+      </div>
     </div>
-    <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/sidebarmenu.js"></script>
-    <script src="./assets/js/app.min.js"></script>
-    <script src="./assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="./assets/libs/simplebar/dist/simplebar.js"></script>
-    <script src="./assets/js/dashboard.js"></script>
-    <!-- solar icons -->
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  </div>
+  <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./assets/js/sidebarmenu.js"></script>
+  <script src="./assets/js/app.min.js"></script>
+  <script src="./assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+  <script src="./assets/libs/simplebar/dist/simplebar.js"></script>
+  <script src="./assets/js/dashboard.js"></script>
+  <!-- solar icons -->
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 </body>
 
 </html>

@@ -1,12 +1,9 @@
 <?php
 include('inc.connection.php');
 
-$sql = "SELECT parent_requests.*, users.name AS parent_name 
-        FROM parent_requests 
-        LEFT JOIN users ON parent_requests.parent_id = users.id
-        ORDER BY parent_requests.id DESC";
-
+$sql = "SELECT * FROM parent_requests ORDER BY created_at DESC";
 $result = mysqli_query($conn, $sql);
+
 ?>
 
 

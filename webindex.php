@@ -22,13 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register_child'])) {
 
   if (mysqli_query($conn, $sql)) {
     $success = "Child registered successfully.";
-  } else {
-    $error = "Error: " . mysqli_error($conn);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
   }
 }
 
 
-// === Booking Request Form Submission ===
+//  Booking Request Form Submission ===
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit_booking'])) {
   $child_id = safe_input($_POST['child_id']);
   $vaccine_id = safe_input($_POST['vaccine_id']);
@@ -36,16 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit_booking'])) {
   $preferred_date = safe_input($_POST['preferred_date']);
   $status = 'Pending';
 
-  // Get parent_id from session
   $parent_id = $_SESSION['user_id'];
 
   $sql = "INSERT INTO booking_requests (parent_id, child_id, vaccine_id, hospital_id, preferred_date, status)
           VALUES ('$parent_id', '$child_id', '$vaccine_id', '$hospital_id', '$preferred_date', '$status')";
 
   if (mysqli_query($conn, $sql)) {
-    $success = "Booking request submitted successfully.";
-  } else {
-    $error = "Error: " . mysqli_error($conn);
+    $success = "booking request submmited successfully.";
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
   }
 }
 
@@ -69,21 +68,7 @@ while ($row = mysqli_fetch_assoc($hospital_result)) {
   $hospitals[] = $row;
 }
 
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-  $parent_name = $_POST['parent_name'];
-  $email = $_POST['email'];
-  $phone = $_POST['phone'];
-  $message = $_POST['message'];
-
-  // Save the inquiry
-  $parent_id = $_SESSION['user_id'];
-
-  $insert = "INSERT INTO parent_requests (parent_name, email,phone, message) VALUES ('$parent_name', '$email','$phone', '$message')";
-  mysqli_query($conn, $insert);
-}
 ?>
-
 
 
 <!DOCTYPE html>
@@ -92,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Soft Dose vaccination-system </title>
+  <title>Index - Medicio Bootstrap Template</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -119,14 +104,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   <link href="assets/css/main.css" rel="stylesheet">
 
   <!-- =======================================================
-  * Template Name: Soft Dose
-  * Template URL: https://bootstrapmade.com/Soft Dose-free-bootstrap-theme/
+  * Template Name: Medicio
+  * Template URL: https://bootstrapmade.com/medicio-free-bootstrap-theme/
   * Updated: Aug 07 2024 with Bootstrap v5.3.3
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-  <style>
+
+ <style>
     .btn {
       background-color: #3FBBC0;
       color: white;
@@ -143,29 +129,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
   <header id="header" class="header sticky-top">
 
-    <div class="branding d-flex align-items-center" style="height: 50px;">
+    <div class="branding d-flex align-items-center">
 
-      <div class="container position-relative d-flex align-items-center justify-content-end">
-        <a href="webindex.php" class="logo align-items-center me-auto">
-          <img src="admin/assets/images/logos/78a5fbc7-6bd6-4c64-a8fc-3b73e001733e.png-removebg-preview.png" alt="" style="width: 40px; height: 300px; ">
-          <!-- Uncomment the line below if you also wish to use a text logo -->
-          <!-- <h1 class="sitename">Soft Dose</h1>  -->
-        </a>
+     <div class="container position-relative d-flex align-items-center justify-content-end">
+  <a href="index.html" class="logo d-flex flex-column align-items-center me-auto">
+    <img src="admin/assets/images/logos/78a5fbc7-6bd6-4c64-a8fc-3b73e001733e.png-removebg-preview.png" alt="" style="height: 100px; width: auto;">
+    <span class="sitename mt-1">Safe Dose</span>
+  </a>
 
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="#hero" class="active">Home</a>
-            </li>
-            <li><a href="#about" class="active">About</a>
-            </li>
+  <nav id="navmenu" class="navmenu">
+    <ul>
+      <li><a href="#hero" class="active">Home</a></li>
+      <li><a href="#about" class="active">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#register-child">Register-child</a></li>
+    </ul>
+    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+  </nav>
 
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#register-child">Register-child</a></li>
-            <li><a class="cta-btn" href="webindex.php#appointment">Make an Appointment</a></li>
-            <li><a class="cta-btn" href="admin/login.php">Sign in</a></li>
-          </ul>
-        </nav>
-      </div>
+  <a class="cta-btn" href="#appointment">Make an Appointment</a>
+  <a class="cta-btn" href="admin/login.php">Sign in</a>
+</div>
+
 
     </div>
 
@@ -174,37 +159,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   <main class="main">
 
     <!-- Hero Section -->
-    <section id="hero" class="hero section">
+     <section id="hero" class="hero section">
       <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-item active">
-          <img src="assets/img/vaccine images 8.webp" alt="">
+          <img src="assets/img/2df3d422-133f-43ff-bd56-db49c73b6253.jpg" alt="">
           <div class="container">
             <h2>Welcome to Soft Dose</h2>
             <p>At Soft Dose, we are dedicated to providing reliable and high-quality healthcare services tailored to each
               patient's needs. Whether it’s preventive care, diagnosis, or treatment, our expserienced team is here to
               guide you every step of the way. Your health is our top priority.</p>
-            <a href="#about" class="btn-get-started">Read More</a>
+            <a href="#about" class="btn-get-started">About Us</a>
           </div>
         </div><!-- End Carousel Item -->
         <div class="carousel-item">
-          <img src="assets/img/vaccine images 9.webp" alt="">
+          <img src="assets/img/3f8b6c59-8a70-48e7-aa6e-5ad883d46d87.jpg" alt="">
           <div class="container">
             <h2>Welcome to Soft Dose</h2>
             <p>At Soft Dose, we are dedicated to providing reliable and high-quality healthcare services tailored to each
               patient's needs. Whether it’s preventive care, diagnosis, or treatment, our expserienced team is here to
               guide you every step of the way. Your health is our top priority.</p>
-            <a href="#about" class="btn-get-started">Read More</a>
+            <a href="#about" class="btn-get-started">About Us</a>
           </div>
         </div><!-- End Carousel Item -->
 
         <div class="carousel-item">
-          <img src="assets/img/vaccine images 10.webp" alt="">
+          <img src="assets/img/c0a26ca2-705d-4b47-975c-595d8b8832a6.jpg" alt="">
           <div class="container">
             <h2>Welcome to Soft Dose</h2>
             <p>At Soft Dose, we are dedicated to providing reliable and high-quality healthcare services tailored to each
               patient's needs. Whether it’s preventive care, diagnosis, or treatment, our expserienced team is here to
               guide you every step of the way. Your health is our top priority.</p>
-            <a href="#about" class="btn-get-started">Read More</a>
+            <a href="#about" class="btn-get-started">About Us</a>
           </div>
         </div><!-- End Carousel Item -->
 
@@ -222,40 +207,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
     </section><!-- /Hero Section -->
 
-<section id="about" class="about section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>About Us<br></h2>
-        <p>Making child vaccination easier, smarter, and safer</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-          <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="">
-            <a href="assets/img/" class="glightbox pulsating-play-btn"></a>
-          </div>
-          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
-           <h4 class="fw-semibold">What is eVaccine System?</h4>
-        <p>
-          eVaccine System is a digital platform designed to simplify child vaccination tracking, booking, and management.
-          It connects parents, hospitals, and administrators to ensure timely and efficient immunizations.
-        </p>
-            <ul class="list-unstyled mt-3">
-          <li><i class="bi bi-check-circle-fill text-success me-2"></i>Online booking & approval system</li>
-          <li><i class="bi bi-check-circle-fill text-success me-2"></i>Track vaccination schedules</li>
-          <li><i class="bi bi-check-circle-fill text-success me-2"></i>Hospital-wise vaccine management</li>
-          <li><i class="bi bi-check-circle-fill text-success me-2"></i>Generate and view vaccination reports</li>
-        </ul>
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-    
     <!-- Featured Services Section -->
     <section id="featured-services" class="featured-services section">
 
@@ -275,8 +226,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
           <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item position-relative">
               <div class="icon"><i class="fas fa-pills icon"></i></div>
-              <h4><a href="" class="stretched-link">Vaccination Services at Soft Dose</a></h4>
-              <p>At Soft Dose, we provide safe, certified, and internationally standardized vaccination services for both
+              <h4><a href="" class="stretched-link">Vaccination Services at Medicio</a></h4>
+              <p>At Medicio, we provide safe, certified, and internationally standardized vaccination services for both
                 children and adults. Our goal is to deliver timely and effective vaccines to help every individual live
                 a healthy life.</p>
             </div>
@@ -331,75 +282,75 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
     </section><!-- /Call To Action Section -->
 
-    <section id="tabs" class="tabs section">
+    <!-- About Section -->
+    <section id="about" class="about section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>HOSPITALS</h2>
+        <h2>About Us<br></h2>
       </div><!-- End Section Title -->
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row">
-          <div class="col-lg-3">
-            <ul class="nav nav-tabs flex-column">
-              <li class="nav-item">
-                <a class="nav-link active show" data-bs-toggle="tab" href="#tabs-tab-1">South City </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-2">Agha Khan </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-3">PNS Shifa</a>
-              </li>
-            </ul>
+
+      <!-- Stats Section -->
+      <section id="stats" class="stats section">
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="row gy-4">
+
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-item d-flex align-items-center w-100 h-100">
+                <i class="fas fa-user-md flex-shrink-0"></i>
+                <div>
+                  <span data-purecounter-start="0" data-purecounter-end="25" data-purecounter-duration="1"
+                    class="purecounter"></span>
+                  <p>Doctors</p>
+                </div>
+              </div>
+            </div><!-- End Stats Item -->
+
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-item d-flex align-items-center w-100 h-100">
+                <i class="far fa-hospital flex-shrink-0"></i>
+                <div>
+                  <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"
+                    class="purecounter"></span>
+                  <p>Departments</p>
+                </div>
+              </div>
+            </div><!-- End Stats Item -->
+
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-item d-flex align-items-center w-100 h-100">
+                <i class="fas fa-flask flex-shrink-0"></i>
+                <div>
+                  <span data-purecounter-start="0" data-purecounter-end="8" data-purecounter-duration="1"
+                    class="purecounter"></span>
+                  <p>Research Labs</p>
+                </div>
+              </div>
+            </div><!-- End Stats Item -->
+
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-item d-flex align-items-center w-100 h-100">
+                <i class="fas fa-award flex-shrink-0"></i>
+                <div>
+                  <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1"
+                    class="purecounter"></span>
+                  <p>Awards</p>
+                </div>
+              </div>
+            </div><!-- End Stats Item -->
+
           </div>
-          <div class="col-lg-9 mt-4 mt-lg-0">
-            <div class="tab-content">
-              <div class="tab-pane active show" id="tabs-tab-1">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>South City</h3>
-                    <p class="fst-italic">Ground Floor, South City Hospital
-                      Timings: 9:00 AM to 6:00 PM (daily, except weekends)</p>
-                    <p>Nature of Service:
-                      Various types of vaccines are provided at private charges depending on availability, and a
-                      vaccination card is issued by the hospital – however, it is not registered or certified by
-                      NADRA.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="tabs-tab-2">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Agha Khan</h3>
-                    <p class="fst-italic">The hospital operates with approximately 560 beds, including private,
-                      semi‑private, general wards, as well as ICU, CCU, and NICU units. On average, patient stays
-                      around 4 days— among the lowest in the region
-                      Wikipedia.
-                    </p>
-                    <p>There are 17 main operating theatres, plus additional surgical day-care suites across
-                      departments, including OB/GYN day‑care units
-                      Wikipedia.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="tabs-tab-3">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>PNS shifa</h3>
-                    <p class="fst-italic">The hospital currently accommodates over 800 beds and treats hundreds of
-                      thousands of patients annually including both military personnel and civilians.</p>
-                    <p>Open to both service personnel and civilian patients. Consultation fees for specialist clinics
-                      are around PKR 2,000, with appointments available Monday–Friday evenings. </p>
-                  </div>
 
-                </div>
-              </div>
-    </section>
+        </div>
 
-    <!-- childern registration -->
-    <section class="section light-background" id="register-child">
+      </section><!-- /Stats Section -->
+
+
+       <section class="section light-background" id="register-child">
       <div class="container section-title" data-aos="fade-up">
         <h2>Register Child</h2>
       </div>
@@ -454,12 +405,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     </section>
 
 
-
-    <!-- childern registration -->
-
-
-    <!-- Appointment Section -->
-    <section class="section light-background" id="appointment">
+      <!-- Appointment Section -->
+      <section class="section light-background" id="appointment">
       <div class="container section-title" data-aos="fade-up">
         <h2>Book a Vaccine Appointment</h2>
       </div>
@@ -506,116 +453,214 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
           </div>
         </form>
       </div>
-    </section>
+    </section><!-- /Appointment Section -->
 
-    <!-- /Appointment Section -->
+      <!-- Tabs Section -->
+      <section id="tabs" class="tabs section">
 
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>HOSPITALS</h2>
+        </div><!-- End Section Title -->
 
-    <!-- Faq Section -->
-    <section id="faq" class="faq section light-background">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Frequently Asked Questions</h2>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row justify-content-center">
-
-          <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="faq-container">
-
-              <div class="faq-item">
-                <h3>Which vaccines are necessary for my child?</h3>
-                <div class="faq-content">
-                  <p>According to the routine immunization schedule, the following vaccines are necessary for every
-                    child:
-                    <br>
-                    BCG (for tuberculosis) , Hepatitis B , Polio (OPV/IPV) , DTP (Diphtheria, Tetanus, Pertussis) ,
-                    Hib (Haemophilus influenzae type b)
-                    MMR (Measles, Mumps, Rubella) , Rotavirus , Pneumococcal , Typhoid , Chickenpox , Hepatitis A
-                    (optional)
-                  </p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>At what age should the first vaccine be given?</h3>
-                <div class="faq-content">
-                  <p>The first vaccines—BCG, OPV zero dose, and Hepatitis B—should be given immediately after birth or
-                    within the first 24 hours.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3> What should I do if a vaccine dose is missed?</h3>
-                <div class="faq-content">
-                  <p>If a vaccine dose is missed, don’t worry. Contact your doctor as soon as possible. The missed
-                    dose can be administered according to a catch-up schedule. Being late doesn’t mean the vaccine
-                    becomes ineffective.
-
-                  </p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3> Is it normal for a child to have fever after vaccination?</h3>
-                <div class="faq-content">
-                  <p>Yes, mild fever, tiredness, or pain/swelling at the injection site is common after vaccination.
-                    These are signs that the immune system is responding to the vaccine.
-
-                  </p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>Are vaccines safe for children with allergies?</h3>
-                <div class="faq-content">
-                  <p>Most vaccines are safe even for children with allergies. However, if your child has a known
-                    allergy to specific substances (like eggs or gelatin), inform your doctor before vaccination.
-
-                  </p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>Is the vaccination certificate required for school admission?</h3>
-                <div class="faq-content">
-                  <p>Yes, most schools require a child’s immunization record or vaccination certificate at the time of
-                    admission. It is important to maintain proper documentation.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
+          <div class="row">
+            <div class="col-lg-3">
+              <ul class="nav nav-tabs flex-column">
+                <li class="nav-item">
+                  <a class="nav-link active show" data-bs-toggle="tab" href="#tabs-tab-1">South City </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-2">Agha Khan </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-3">PNS Shifa</a>
+                </li>
+              </ul>
             </div>
+            <div class="col-lg-9 mt-4 mt-lg-0">
+              <div class="tab-content">
+                <div class="tab-pane active show" id="tabs-tab-1">
+                  <div class="row">
+                    <div class="col-lg-8 details order-2 order-lg-1">
+                      <h3>South City</h3>
+                      <p class="fst-italic">Ground Floor, South City Hospital
+                        Timings: 9:00 AM to 6:00 PM (daily, except weekends)</p>
+                      <p>Nature of Service:
+                        Various types of vaccines are provided at private charges depending on availability, and a
+                        vaccination card is issued by the hospital – however, it is not registered or certified by
+                        NADRA.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tabs-tab-2">
+                  <div class="row">
+                    <div class="col-lg-8 details order-2 order-lg-1">
+                      <h3>Agha Khan</h3>
+                      <p class="fst-italic">The hospital operates with approximately 560 beds, including private,
+                        semi‑private, general wards, as well as ICU, CCU, and NICU units. On average, patient stays
+                        around 4 days— among the lowest in the region
+                        Wikipedia.
+                      </p>
+                      <p>There are 17 main operating theatres, plus additional surgical day-care suites across
+                        departments, including OB/GYN day‑care units
+                        Wikipedia.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tabs-tab-3">
+                  <div class="row">
+                    <div class="col-lg-8 details order-2 order-lg-1">
+                      <h3>PNS shifa</h3>
+                      <p class="fst-italic">The hospital currently accommodates over 800 beds and treats hundreds of
+                        thousands of patients annually including both military personnel and civilians.</p>
+                      <p>Open to both service personnel and civilian patients. Consultation fees for specialist clinics
+                        are around PKR 2,000, with appointments available Monday–Friday evenings. </p>
+                    </div>
 
-          </div><!-- End Faq Column-->
+                  </div>
+                </div>
+                <div class="tab-pane" id="tabs-tab-4">
+                  <div class="row">
+                    <div class="col-lg-8 details order-2 order-lg-1">
+                      <h3>Pediatrics</h3>
+                      <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis
+                        delectus</p>
+                      <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus
+                        aliquam fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi
+                        asperiores sed qui veritatis aperiam quia a laborum inventore</p>
+                    </div>
+                    <div class="col-lg-4 text-center order-1 order-lg-2">
+                      <img src="assets/img/departments-4.jpg" alt="" class="img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tabs-tab-5">
+                  <div class="row">
+                    <div class="col-lg-8 details order-2 order-lg-1">
+                      <h3>Ophthalmologists</h3>
+                      <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
+                      <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut
+                        quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae
+                        molestiae voluptate vel</p>
+                    </div>
+                    <div class="col-lg-4 text-center order-1 order-lg-2">
+                      <img src="assets/img/departments-5.jpg" alt="" class="img-fluid">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
 
-      </div>
+      </section><!-- /Tabs Section -->
+      <!-- Faq Section -->
+      <section id="faq" class="faq section light-background">
 
-    </section><!-- /Faq Section -->
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Frequently Asked Questions</h2>
+        </div><!-- End Section Title -->
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
+        <div class="container">
+
+          <div class="row justify-content-center">
+
+            <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+
+              <div class="faq-container">
+
+                <div class="faq-item">
+                  <h3>Which vaccines are necessary for my child?</h3>
+                  <div class="faq-content">
+                    <p>According to the routine immunization schedule, the following vaccines are necessary for every
+                      child:
+                      <br>
+                      BCG (for tuberculosis) , Hepatitis B , Polio (OPV/IPV) , DTP (Diphtheria, Tetanus, Pertussis) ,
+                      Hib (Haemophilus influenzae type b)
+                      MMR (Measles, Mumps, Rubella) , Rotavirus , Pneumococcal , Typhoid , Chickenpox , Hepatitis A
+                      (optional)
+                    </p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div><!-- End Faq item-->
+
+                <div class="faq-item">
+                  <h3>At what age should the first vaccine be given?</h3>
+                  <div class="faq-content">
+                    <p>The first vaccines—BCG, OPV zero dose, and Hepatitis B—should be given immediately after birth or
+                      within the first 24 hours.</p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div><!-- End Faq item-->
+
+                <div class="faq-item">
+                  <h3> What should I do if a vaccine dose is missed?</h3>
+                  <div class="faq-content">
+                    <p>If a vaccine dose is missed, don’t worry. Contact your doctor as soon as possible. The missed
+                      dose can be administered according to a catch-up schedule. Being late doesn’t mean the vaccine
+                      becomes ineffective.
+
+                    </p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div><!-- End Faq item-->
+
+                <div class="faq-item">
+                  <h3> Is it normal for a child to have fever after vaccination?</h3>
+                  <div class="faq-content">
+                    <p>Yes, mild fever, tiredness, or pain/swelling at the injection site is common after vaccination.
+                      These are signs that the immune system is responding to the vaccine.
+
+                    </p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div><!-- End Faq item-->
+
+                <div class="faq-item">
+                  <h3>Are vaccines safe for children with allergies?</h3>
+                  <div class="faq-content">
+                    <p>Most vaccines are safe even for children with allergies. However, if your child has a known
+                      allergy to specific substances (like eggs or gelatin), inform your doctor before vaccination.
+
+                    </p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div><!-- End Faq item-->
+
+                <div class="faq-item">
+                  <h3>Is the vaccination certificate required for school admission?</h3>
+                  <div class="faq-content">
+                    <p>Yes, most schools require a child’s immunization record or vaccination certificate at the time of
+                      admission. It is important to maintain proper documentation.</p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div><!-- End Faq item-->
+
+              </div>
+
+            </div><!-- End Faq Column-->
+
+          </div>
+
+        </div>
+
+      </section><!-- /Faq Section -->
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Contact</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
       </div><!-- End Section Title -->
 
       <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
-        <iframe style="border:0; width: 100%; height: 370px;"
-          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus"
-          frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe style="border:0; width: 100%; height: 370px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div><!-- End Google Maps -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -625,17 +670,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             <div class="row gy-4">
 
               <div class="col-lg-12">
-                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up"
-                  data-aos-delay="200">
+                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
                   <i class="bi bi-geo-alt"></i>
                   <h3>Address</h3>
-                  <p>Aptect Tariq Raod Karachi</p>
+                  <p>A108 Adam Street, New York, NY 535022</p>
                 </div>
               </div><!-- End Info Item -->
 
               <div class="col-md-6">
-                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up"
-                  data-aos-delay="300">
+                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
                   <i class="bi bi-telephone"></i>
                   <h3>Call Us</h3>
                   <p>+1 5589 55488 55</p>
@@ -643,11 +686,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
               </div><!-- End Info Item -->
 
               <div class="col-md-6">
-                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up"
-                  data-aos-delay="400">
+                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
                   <i class="bi bi-envelope"></i>
                   <h3>Email Us</h3>
-                  <p>Aptech@gmail.com</p>
+                  <p>info@example.com</p>
                 </div>
               </div><!-- End Info Item -->
 
@@ -655,12 +697,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
           </div>
 
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up"
-              data-aos-delay="500">
+            <form action="" method="POST" class="php-email-form" data-aos="fade-up" data-aos-delay="500">
               <div class="row gy-4">
 
                 <div class="col-md-6">
-                  <input type="text" name="parent_name" class="form-control" placeholder="Your Name" required="">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
                 </div>
 
                 <div class="col-md-6 ">
@@ -668,7 +709,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                 </div>
 
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="phone" placeholder="phone-no" required="">
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
                 </div>
 
                 <div class="col-md-12">
@@ -701,7 +742,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
           <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">Soft Dose</span>
+            <span class="sitename">Medicio</span>
           </a>
           <div class="footer-contact pt-3">
             <p>Aptect Tariq Road</p>
@@ -717,7 +758,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
           </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 footer-links">
+        <div class="col-lg-2 col-md-3 footer-links">
           <h4>Useful Links</h4>
           <ul>
             <li><a href="#">Home</a></li>
@@ -728,19 +769,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
           </ul>
         </div>
 
-        <div class="col-lg-3 col-md-4 footer-links">
+        <div class="col-lg-2 col-md-3 footer-links">
           <h4>Our Services</h4>
           <ul>
-            <li>Child Registration</li>
-            <li>Vaccine Scheduling</li>
-            <li>Hospital Management</li>
-            <li>Vaccination Reports</li>
+            <li><a href="#">Web Design</a></li>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">Product Management</a></li>
+            <li><a href="#">Marketing</a></li>
+            <li><a href="#">Graphic Design</a></li>
           </ul>
         </div>
 
-      </div>
-      <div class="text-center pt-3 border-top border-light mt-4 mb-3">
-        <p class="mb-0">&copy; <?php echo date("Y"); ?> eVaccine System. All rights reserved.</p>
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Hic solutasetp</h4>
+          <ul>
+            <li><a href="#">Molestiae accusamus iure</a></li>
+            <li><a href="#">Excepturi dignissimos</a></li>
+            <li><a href="#">Suscipit distinctio</a></li>
+            <li><a href="#">Dilecta</a></li>
+            <li><a href="#">Sit quas consectetur</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Nobis illum</h4>
+          <ul>
+            <li><a href="#">Ipsam</a></li>
+            <li><a href="#">Laudantium dolorum</a></li>
+            <li><a href="#">Dinera</a></li>
+            <li><a href="#">Trodelas</a></li>
+            <li><a href="#">Flexo</a></li>
+          </ul>
+        </div>
+
       </div>
     </div>
 
