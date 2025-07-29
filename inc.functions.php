@@ -20,7 +20,7 @@ function safe_input($data) {
     $data = htmlspecialchars($data);
     $data = mysqli_real_escape_string($conn, $data);
     return $data;
-}
+}   
 ?>
 
 

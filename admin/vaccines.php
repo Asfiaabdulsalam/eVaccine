@@ -2,7 +2,7 @@
 include('inc.connection.php');
 $sql = "SELECT 
     v.*, 
-    (v.available_quantity - COUNT(s.id)) AS remaining_quantity
+    (v.available_quantity - COUNT(s.id)) AS available_quantity
 FROM vaccines v
 LEFT JOIN vaccination_schedule s ON v.id = s.vaccine_id AND s.status = 'Pending'
 GROUP BY v.id;
@@ -208,7 +208,6 @@ $result = mysqli_query($conn, $sql);
                           <th scope="col" class="px-3 text-muted">Id</th>
                           <th scope="col" class="px-3 text-muted">Name</th>
                           <th scope="col" class="px-3 text-muted">Available-quantity</th>
-                          <th scope="col" class="px-3 text-muted">remaining_quantity</th>
                           <th scope="col" class="px-3 text-muted">Description</th>
                       </thead>
                       <tbody>
@@ -217,7 +216,6 @@ $result = mysqli_query($conn, $sql);
                             <td class="px-3"><?php echo $row['id']; ?></td>
                             <td class="px-3"><?php echo $row['name']; ?></td>
                             <td class="px-3"><?php echo $row['available_quantity']; ?></td>
-                            <td class="px-3"><?php echo $row['remaining_quantity']; ?></td>
                             <td class="px-3"><?php echo $row['description']; ?></td>
                           </tr>
                         <?php } ?>
