@@ -69,23 +69,6 @@ while ($row = mysqli_fetch_assoc($hospital_result)) {
 }
 
 
-// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-//   $parent_id = $_SESSION['user_id'] ?? null; // if parent logged in
-//   $parent_name = mysqli_real_escape_string($conn, $_POST['parent_name']);
-//   $email = mysqli_real_escape_string($conn, $_POST['email']);
-//   $message = mysqli_real_escape_string($conn, $_POST['message']);
-
-//   // Insert into parent_requests table
-//   $sql = "INSERT INTO parent_requests (parent_id, parent_name, email, message, created_at) 
-//             VALUES ('$parent_id', '$parent_name', '$email', '$message', NOW())";
-
-//   if (mysqli_query($conn, $sql)) {
-//     $success = "Your request has been submitted!";
-//   } else {
-//     $error = "Error: " . mysqli_error($conn);
-//   }
-// }
-
 ?>
 
 
@@ -95,7 +78,7 @@ while ($row = mysqli_fetch_assoc($hospital_result)) {
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Medicio Bootstrap Template</title>
+  <title>Index - soft dose</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -332,7 +315,7 @@ while ($row = mysqli_fetch_assoc($hospital_result)) {
               <div class="stats-item d-flex align-items-center w-100 h-100">
                 <i class="far fa-hospital flex-shrink-0"></i>
                 <div>
-                  <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"
+                  <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1"
                     class="purecounter"></span>
                   <p>Departments</p>
                 </div>
@@ -676,7 +659,7 @@ while ($row = mysqli_fetch_assoc($hospital_result)) {
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
           <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">Medicio</span>
+            <span class="sitename">Soft Dose</span>
           </a>
           <div class="footer-contact pt-3">
             <p>Aptect Tariq Road</p>

@@ -148,44 +148,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <h2>Contact</h2>
-                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+                <p>"Have questions? Contact us today – we're here to help!""Have questions? Contact us today – we're here to help!"</p>
             </div><!-- End Section Title -->
 
             <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
-                <iframe style="border:0; width: 100%; height: 370px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe style="border:0; width: 100%; height: 370px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.7617420036386!2d67.05919639999999!3d24.871985799999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33eeca8432bf5%3A0x81dece3730c9b1c5!2sAptech%20Computer%20Education%20Tariq%20Road!5e0!3m2!1sen!2s!4v1753879457747!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div><!-- End Google Maps -->
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="row gy-4">
                     <div class="col-lg-6 ">
-                        <div class="row gy-4">
+                         <div class="row gy-4">
 
-                            <div class="col-lg-12">
-                                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
-                                    <i class="bi bi-geo-alt"></i>
-                                    <h3>Address</h3>
-                                    <p>A108 Adam Street, New York, NY 535022</p>
-                                </div>
-                            </div><!-- End Info Item -->
+                <div class="col-lg-12">
+                  <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <i class="bi bi-geo-alt"></i>
+                    <h3>Address</h3>
+                    <p>Aptect Tariq Raod Karachi</p>
+                  </div>
+                </div><!-- End Info Item -->
 
-                            <div class="col-md-6">
-                                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
-                                    <i class="bi bi-telephone"></i>
-                                    <h3>Call Us</h3>
-                                    <p>+1 5589 55488 55</p>
-                                </div>
-                            </div><!-- End Info Item -->
+                <div class="col-md-6">
+                  <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up"
+                    data-aos-delay="300">
+                    <i class="bi bi-telephone"></i>
+                    <h3>Call Us</h3>
+                    <p>+1 5589 55488 55</p>
+                  </div>
+                </div><!-- End Info Item -->
 
-                            <div class="col-md-6">
-                                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
-                                    <i class="bi bi-envelope"></i>
-                                    <h3>Email Us</h3>
-                                    <p>info@example.com</p>
-                                </div>
-                            </div><!-- End Info Item -->
+                <div class="col-md-6">
+                  <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up"
+                    data-aos-delay="400">
+                    <i class="bi bi-envelope"></i>
+                    <h3>Email Us</h3>
+                    <p>Aptech@gmail.com</p>
+                  </div>
+                </div><!-- End Info Item -->
 
-                        </div>
+              </div>
                     </div>
 
                     <div class="col-lg-6">
@@ -237,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             <div class="row gy-4">
                 <div class="col-lg-4 col-md-6 footer-about">
                     <a href="index.html" class="logo d-flex align-items-center">
-                        <span class="sitename">Medicio</span>
+                        <span class="sitename">Soft Dose</span>
                     </a>
                     <div class="footer-contact pt-3">
                         <p>Aptect Tariq Road</p>

@@ -103,6 +103,7 @@ $result = mysqli_query($conn, $sql);
 
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                  <h3 style="color: #025f66; margin-top: 10px">PNS Shifa</h3>
                     <ul id="sidebarnav">
                         <li class="nav-small-cap">
                             <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
@@ -127,6 +128,7 @@ $result = mysqli_query($conn, $sql);
             <!-- End Sidebar scroll-->
         </aside>
         <!--  Sidebar End -->
+      
         <!--  Main wrapper -->
         <div class="body-wrapper">
             <!--  Header Start -->
@@ -142,6 +144,7 @@ $result = mysqli_query($conn, $sql);
                                 <div class="card-body">
                                     <div class="d-md-flex align-items-center">
                                         <div>
+                                          
                                             <h4 class="card-title">VACCINE RESERVATION</h4>
                                             <!-- <p class="card-subtitle">
                         Ample Admin Vs Pixel Admin

@@ -1,8 +1,5 @@
 <?php
-// if (!isset($_SESSION['user_id'])) {
-//   header("Location: login.php");
-//   exit;
-// }
+
 
 include('inc.connection.php');
 $sql = "SELECT * FROM `users` WHERE role = 'admin'";
