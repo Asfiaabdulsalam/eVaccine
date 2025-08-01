@@ -68,6 +68,32 @@ while ($row = mysqli_fetch_assoc($hospital_result)) {
   $hospitals[] = $row;
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Make sure parent is logged in and parent_id is available
+    if (isset($_SESSION['user_id'])) {
+        $parent_id = $_SESSION['user_id'];
+
+        $name    = mysqli_real_escape_string($conn, $_POST['name']);
+        $email   = mysqli_real_escape_string($conn, $_POST['email']);
+        $subject = mysqli_real_escape_string($conn, $_POST['subject']);
+        $message = mysqli_real_escape_string($conn, $_POST['message']);
+
+        // Full message (you can also store individually if needed)
+        $full_message = "From: $name <$email>\nSubject: $subject\n\nMessage:\n$message";
+
+        // Insert into parent_requests
+        $sql = "INSERT INTO parent_requests (parent_id, request_type, message)
+                VALUES ('$parent_id', 'Contact Form', '$full_message')";
+
+        if (mysqli_query($conn, $sql)) {
+            $success_message = "Your message has been sent successfully!";
+        } else {
+            $error_message = "Error: Unable to send your message.";
+        }
+    } else {
+        $error_message = "You must be logged in as a parent to send a message.";
+    }
+}
 ?>
 
 
