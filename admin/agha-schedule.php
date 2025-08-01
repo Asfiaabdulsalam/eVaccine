@@ -124,6 +124,8 @@ if (!$result) {
 
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                  <h3 style="color: #025f66; margin-top: 10px">Agha Khan</h3>
+
           <ul id="sidebarnav">
             <li class="nav-small-cap">
               <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>

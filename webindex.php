@@ -68,6 +68,7 @@ while ($row = mysqli_fetch_assoc($hospital_result)) {
   $hospitals[] = $row;
 }
 
+<<<<<<< HEAD
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Make sure parent is logged in and parent_id is available
     if (isset($_SESSION['user_id'])) {
@@ -94,6 +95,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_message = "You must be logged in as a parent to send a message.";
     }
 }
+=======
+
+>>>>>>> 5dc99b9de5f718e544d6889233588a29a83a1451
 ?>
 
 
@@ -103,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Medicio Bootstrap Template</title>
+  <title>Index - soft dose</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -138,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   ======================================================== -->
 
 
- <style>
+  <style>
     .btn {
       background-color: #3FBBC0;
       color: white;
@@ -157,25 +161,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="branding d-flex align-items-center">
 
-     <div class="container position-relative d-flex align-items-center justify-content-end">
-  <a href="index.html" class="logo d-flex flex-column align-items-center me-auto">
-    <img src="admin/assets/images/logos/78a5fbc7-6bd6-4c64-a8fc-3b73e001733e.png-removebg-preview.png" alt="" style="height: 100px; width: auto;">
-    <span class="sitename mt-1">Safe Dose</span>
-  </a>
+      <div class="container position-relative d-flex align-items-center justify-content-end">
+        <a href="index.html" class="logo d-flex flex-column align-items-center me-auto">
+          <img src="admin/assets/images/logos/78a5fbc7-6bd6-4c64-a8fc-3b73e001733e.png-removebg-preview.png" alt="" style="height: 100px; width: auto;">
+          <span class="sitename mt-1">Safe Dose</span>
+        </a>
 
-  <nav id="navmenu" class="navmenu">
-    <ul>
-      <li><a href="#hero" class="active">Home</a></li>
-      <li><a href="#about" class="active">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="#register-child">Register-child</a></li>
-    </ul>
-    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-  </nav>
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="#hero" class="active">Home</a></li>
+            <li><a href="#about" class="active">About</a></li>
+            <li><a href="contact.php">Contact</a></li>
+            <li><a href="#register-child">Register-child</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
 
-  <a class="cta-btn" href="#appointment">Make an Appointment</a>
-  <a class="cta-btn" href="admin/login.php">Sign in</a>
-</div>
+        <a class="cta-btn" href="#appointment">Make an Appointment</a>
+        <a class="cta-btn" href="admin/login.php">Sign in</a>
+      </div>
 
 
     </div>
@@ -185,7 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <main class="main">
 
     <!-- Hero Section -->
-     <section id="hero" class="hero section">
+    <section id="hero" class="hero section">
       <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-item active">
           <img src="assets/img/2df3d422-133f-43ff-bd56-db49c73b6253.jpg" alt="">
@@ -340,7 +344,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <div class="stats-item d-flex align-items-center w-100 h-100">
                 <i class="far fa-hospital flex-shrink-0"></i>
                 <div>
-                  <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"
+                  <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1"
                     class="purecounter"></span>
                   <p>Departments</p>
                 </div>
@@ -376,110 +380,110 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </section><!-- /Stats Section -->
 
 
-       <section class="section light-background" id="register-child">
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Register Child</h2>
-      </div>
+      <section class="section light-background" id="register-child">
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Register Child</h2>
+        </div>
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <form method="POST">
-          <div class="row">
-            <!-- Child Name -->
-            <div class="col-md-4 form-group">
-              <input type="text" name="child_name" class="form-control" placeholder="Child Name" required>
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <form method="POST">
+            <div class="row">
+              <!-- Child Name -->
+              <div class="col-md-4 form-group">
+                <input type="text" name="child_name" class="form-control" placeholder="Child Name" required>
+              </div>
+
+              <!-- Date of Birth -->
+              <div class="col-md-4 form-group mt-3 mt-md-0">
+                <input type="date" name="dob" class="form-control" required>
+              </div>
+
+              <!-- Gender -->
+              <div class="col-md-4 form-group mt-3 mt-md-0">
+                <select name="gender" class="form-select" required>
+                  <option disabled selected value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
             </div>
 
-            <!-- Date of Birth -->
-            <div class="col-md-4 form-group mt-3 mt-md-0">
-              <input type="date" name="dob" class="form-control" required>
+            <!-- Blood Group -->
+            <div class="row mt-3">
+              <div class="col-md-6 form-group">
+                <select name="blood_group" class="form-select" required>
+                  <option disabled selected value="">Select Blood Group</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
+              </div>
             </div>
 
-            <!-- Gender -->
-            <div class="col-md-4 form-group mt-3 mt-md-0">
-              <select name="gender" class="form-select" required>
-                <option disabled selected value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
+            <!-- Submit Button -->
+            <div class="text-center mt-4">
+              <button class="btn" type="submit" name="register_child">Register Child</button>
             </div>
-          </div>
-
-          <!-- Blood Group -->
-          <div class="row mt-3">
-            <div class="col-md-6 form-group">
-              <select name="blood_group" class="form-select" required>
-                <option disabled selected value="">Select Blood Group</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="text-center mt-4">
-            <button class="btn" type="submit" name="register_child">Register Child</button>
-          </div>
-        </form>
-      </div>
-    </section>
+          </form>
+        </div>
+      </section>
 
 
       <!-- Appointment Section -->
       <section class="section light-background" id="appointment">
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Book a Vaccine Appointment</h2>
-      </div>
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Book a Vaccine Appointment</h2>
+        </div>
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <form method="POST">
-          <div class="row">
-            <div class="col-md-4 form-group">
-              <select name="child_id" class="form-select" required>
-                <option value="">Select Child</option>
-                <?php foreach ($children as $child): ?>
-                  <option value="<?= $child['id'] ?>"><?= htmlspecialchars($child['name']) ?></option>
-                <?php endforeach; ?>
-              </select>
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <form method="POST">
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <select name="child_id" class="form-select" required>
+                  <option value="">Select Child</option>
+                  <?php foreach ($children as $child): ?>
+                    <option value="<?= $child['id'] ?>"><?= htmlspecialchars($child['name']) ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+
+              <div class="col-md-4 form-group mt-3 mt-md-0">
+                <select name="vaccine_id" class="form-select" required>
+                  <option value="">Select Vaccine</option>
+                  <?php foreach ($vaccines as $vaccine): ?>
+                    <option value="<?= $vaccine['id'] ?>"><?= htmlspecialchars($vaccine['name']) ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+
+              <div class="col-md-4 form-group mt-3 mt-md-0">
+                <select name="hospital_id" class="form-select" required>
+                  <option value="">Select Hospital</option>
+                  <?php foreach ($hospitals as $hospital): ?>
+                    <option value="<?= $hospital['id'] ?>"><?= htmlspecialchars($hospital['name']) ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
             </div>
 
-            <div class="col-md-4 form-group mt-3 mt-md-0">
-              <select name="vaccine_id" class="form-select" required>
-                <option value="">Select Vaccine</option>
-                <?php foreach ($vaccines as $vaccine): ?>
-                  <option value="<?= $vaccine['id'] ?>"><?= htmlspecialchars($vaccine['name']) ?></option>
-                <?php endforeach; ?>
-              </select>
+            <div class="row mt-3">
+              <div class="col-md-6 form-group">
+                <input type="datetime-local" name="preferred_date" class="form-control" required>
+              </div>
             </div>
 
-            <div class="col-md-4 form-group mt-3 mt-md-0">
-              <select name="hospital_id" class="form-select" required>
-                <option value="">Select Hospital</option>
-                <?php foreach ($hospitals as $hospital): ?>
-                  <option value="<?= $hospital['id'] ?>"><?= htmlspecialchars($hospital['name']) ?></option>
-                <?php endforeach; ?>
-              </select>
+            <div class="text-center mt-4">
+              <button class="btn" type="submit" name="submit_booking">Submit Appointment</button>
             </div>
-          </div>
-
-          <div class="row mt-3">
-            <div class="col-md-6 form-group">
-              <input type="datetime-local" name="preferred_date" class="form-control" required>
-            </div>
-          </div>
-
-          <div class="text-center mt-4">
-            <button class="btn" type="submit" name="submit_booking">Submit Appointment</button>
-          </div>
-        </form>
-      </div>
-    </section><!-- /Appointment Section -->
+          </form>
+        </div>
+      </section><!-- /Appointment Section -->
 
       <!-- Tabs Section -->
       <section id="tabs" class="tabs section">
@@ -676,90 +680,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       </section><!-- /Faq Section -->
 
-      <!-- Contact Section -->
-      <section id="contact" class="contact section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
-        <iframe style="border:0; width: 100%; height: 370px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div><!-- End Google Maps -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-          <div class="col-lg-6 ">
-            <div class="row gy-4">
-
-              <div class="col-lg-12">
-                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
-                  <i class="bi bi-geo-alt"></i>
-                  <h3>Address</h3>
-                  <p>A108 Adam Street, New York, NY 535022</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="col-md-6">
-                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
-                  <i class="bi bi-telephone"></i>
-                  <h3>Call Us</h3>
-                  <p>+1 5589 55488 55</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="col-md-6">
-                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
-                  <i class="bi bi-envelope"></i>
-                  <h3>Email Us</h3>
-                  <p>info@example.com</p>
-                </div>
-              </div><!-- End Info Item -->
-
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <form action="" method="POST" class="php-email-form" data-aos="fade-up" data-aos-delay="500">
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="4" placeholder="Message" required=""></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div><!-- End Contact Form -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Contact Section -->
-
   </main>
 
   <footer id="footer" class="footer light-background">
@@ -768,7 +688,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
           <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">Medicio</span>
+            <span class="sitename">Soft Dose</span>
           </a>
           <div class="footer-contact pt-3">
             <p>Aptect Tariq Road</p>
@@ -784,7 +704,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
         </div>
 
-        <div class="col-lg-2 col-md-3 footer-links">
+        <div class="col-lg-3 col-md-4 footer-links">
           <h4>Useful Links</h4>
           <ul>
             <li><a href="#">Home</a></li>
@@ -795,7 +715,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </ul>
         </div>
 
-        <div class="col-lg-2 col-md-3 footer-links">
+        <div class="col-lg-3 col-md-4 footer-links">
           <h4>Our Services</h4>
           <ul>
             <li><a href="#">Web Design</a></li>
@@ -806,31 +726,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </ul>
         </div>
 
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Hic solutasetp</h4>
-          <ul>
-            <li><a href="#">Molestiae accusamus iure</a></li>
-            <li><a href="#">Excepturi dignissimos</a></li>
-            <li><a href="#">Suscipit distinctio</a></li>
-            <li><a href="#">Dilecta</a></li>
-            <li><a href="#">Sit quas consectetur</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Nobis illum</h4>
-          <ul>
-            <li><a href="#">Ipsam</a></li>
-            <li><a href="#">Laudantium dolorum</a></li>
-            <li><a href="#">Dinera</a></li>
-            <li><a href="#">Trodelas</a></li>
-            <li><a href="#">Flexo</a></li>
-          </ul>
-        </div>
 
       </div>
     </div>
-
+    <div class="container text-center py-3 mt-3 border-top">
+      <p class="mb-0">&copy; 2025 <strong>Safe Dose</strong>. All Rights Reserved.</p>
+    </div>
 
 
   </footer>
